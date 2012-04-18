@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Dsp::VERSION
 
   gem.add_development_dependency "rspec"
+  gem.add_development_dependency "rake"
   gem.add_dependency "nokogiri"
   gem.add_dependency "linkeddata"
 end
