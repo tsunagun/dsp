@@ -1,6 +1,6 @@
 require "dsp/version"
 
-module Dsp
+module DSP
   # Your code goes here...
 end
 
