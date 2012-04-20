@@ -12,11 +12,14 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "dsp"
-  gem.require_paths = ["lib"]
+  gem.require_paths = ["lib", "config"]
   gem.version       = Dsp::VERSION
 
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"
   gem.add_dependency "nokogiri"
+  gem.add_dependency "equivalent-xml"
   gem.add_dependency "linkeddata"
+  gem.add_dependency "acts_as_rdf"
+  gem.add_dependency "builder"
 end

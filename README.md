@@ -1,6 +1,6 @@
 # Dsp
 
-TODO: Write a gem description
+DCMI Description Set ProfileをRubyで扱うためのユーティリティー群
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'dsp'
+    dspfile = "http://dandelion.slis.tsukuba.ac.jp/dsp/asahi"
+    ActsAsRDF.repository = RDF::Repository.load(dspfile)
+    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new('http://dandelion.slis.tsukuba.ac.jp/dsp/asahi'))
+    dts = dst.description_templates
+    sts = dts.first.statement_templates
 
 ## Contributing
 
