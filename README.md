@@ -20,8 +20,9 @@ Or install it yourself as:
 
     require 'dsp'
     dspfile = "http://dandelion.slis.tsukuba.ac.jp/dsp/asahi"
+    dst_uri = dspfile
     ActsAsRDF.repository = RDF::Repository.load(dspfile)
-    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new('http://dandelion.slis.tsukuba.ac.jp/dsp/asahi'))
+    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new('dst_uri'))
     dts = dst.description_templates
     sts = dts.first.statement_templates
 
