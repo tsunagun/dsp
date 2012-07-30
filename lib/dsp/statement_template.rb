@@ -6,6 +6,7 @@ module DSP
     has_object :on_property, RDF::OWL.onProperty, RDF::URI
     has_object :on_class, RDF::OWL.onClass, 'DSP::DescriptionTemplate'
     has_object :on_data_range, RDF::OWL.onDataRange, RDF::URI
+    has_object :label, RDF::RDFS.label, String
     has_objects :locations, RDF::DXL.location, RDF::URI
     init_attribute_methods
 

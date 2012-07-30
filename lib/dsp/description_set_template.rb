@@ -3,6 +3,7 @@ module DSP
     include ActsAsRDF::Resource
     define_type RDF::OWL.Ontology
     has_object :primary_topic, RDF::REG.primaryDescription, 'DSP::DescriptionTemplate'
+    has_object :creator, RDF::REG.creator, RDF::URI
     init_attribute_methods
 
     def build_xslt(dspfile)
