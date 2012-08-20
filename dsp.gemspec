@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "dsp"
   gem.require_paths = ["lib", "config"]
-  gem.version       = Dsp::VERSION
+  gem.version       = DSP::VERSION
 
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"
