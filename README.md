@@ -13,17 +13,8 @@ Function 2: Build XSLT Stylesheet from Description Set Profile.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'dsp'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install dsp
+    gem build dsp.gemspec
+    gem install dsp-0.0.1.gem
 
 ## Usage
 
