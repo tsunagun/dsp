@@ -22,7 +22,7 @@ Or install it yourself as:
     dsp_uri = "http://dandelion.slis.tsukuba.ac.jp/dsp/asahi"
     metabridge_base_uri = "http://www.metabridge.jp/infolib/metabridge/api/description?graph="
     ActsAsRDF.repository = RDF::Repository.load(metabridge_base_uri + dsp_uri)
-    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new('dsp_uri'))
+    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new(dsp_uri))
     dts = dst.primary_topic_description_templates
     sts = dts.first.statement_templates
 
