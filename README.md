@@ -24,8 +24,8 @@ Function 2: Build XSLT Stylesheet from Description Set Profile.
     metabridge_base_uri = "http://www.metabridge.jp/infolib/metabridge/api/description?graph="
     ActsAsRDF.repository = RDF::Repository.load(metabridge_base_uri + dsp_uri)
     dst = DSP::DescriptionSetTemplate.find(RDF::URI.new(dsp_uri))
-    dts = dst.primary_topic_description_templates
-    sts = dts.first.statement_templates
+    dt = dst.primary_topic
+    sts = dt.statement_templates
 
 ### Build XSLT Stylesheet from Description Set Profile
     require 'dsp'
