@@ -1,10 +1,10 @@
 require 'open-uri'
 require 'nokogiri'
 require 'linkeddata'
-require 'acts_as_rdf'
+require 'spira'
 require 'builder'
 require 'rdf/reg'
 require 'rdf/dsp'
 require 'rdf/dxl'
 
-ActsAsRDF.repository = RDF::Repository.new
+Spira.add_repository! :default, RDF::Repository.new

@@ -1,72 +1,74 @@
 module DSP
-  class StatementTemplate
-    include ActsAsRDF::Resource
-    define_type RDF::DSP.StatementTemplate
-    has_subject :description_template, RDF::RDFS.subClassOf, 'DSP::DescriptionTemplate'
-    has_object :on_property, RDF::OWL.onProperty, RDF::URI
-    has_object :on_class, RDF::OWL.onClass, 'DSP::DescriptionTemplate'
-    has_object :on_data_range, RDF::OWL.onDataRange, RDF::URI
-    has_object :label, RDF::RDFS.label, String
-    has_objects :locations, RDF::DXL.location, RDF::URI
-    init_attribute_methods
+  class StatementTemplate < Spira::Base
+    include Spira::Resource
+    property :on_property, :predicate => RDF::OWL.onProperty, :type => RDF::URI
+    property :on_data_range, :predicate => RDF::OWL.onDataRange, :type => RDF::URI
+    property :label, :predicate => RDF::RDFS.label, :type => String
+    property :qualified_cardinality, :predicate => RDF::OWL.qualifiedCardinality, :type => Integer
+    property :max_qualified_cardinality, :predicate => RDF::OWL.maxQualifiedCardinality, :type => Integer
+    property :min_qualified_cardinality, :predicate => RDF::OWL.minQualifiedCardinality, :type => Integer
+    has_many :statement_templates, :predicate => RDF::RDFS.subClassOf, :type => "DSP::StatementTemplate"
 
-    # StatementTemplateで定義されたプロパティ，レンジ(値域, 値制約)をHashで取得する
-    # {
-    #   statement_template_uri => {
-    #     :property => property_uri,
-    #     :value => value_range_uri
-    #   }
-    # }
-    # 構造化項目にも一部対応
-    # {
-    #   statement_template1_uri => {
-    #     :property => property_uri,
-    #     :value => [
-    #       {
-    #         statement_template2_uri => {
-    #           :property => property_uri,
-    #           :value => value_range_uri
-    #         },
-    #         statement_template3_uri => {...}
-    #       }
-    #     ]
-    #   }
-    # }
-    def getinfo
-      h = Hash.new
-      value_class_uri = self.on_class.blank? ? nil : self.on_class.uri
-      value_range_uri = self.on_data_range.blank? ? nil : self.on_data_range
-      value_uri = (value_class_uri || value_range_uri)
-      if value_uri.blank? || value_uri == RDF::RDFS.Literal
-        # StatementTemplateのrangeが指定されていない，あるいはrangeがrdfs:Literalである
-        h[self.uri.to_s] = {
-          :property => self.on_property.to_s,
-          :value => RDF::RDFS.Literal.to_s,
-          :locations => self.locations.map do |location| location.to_s end
-        }
-      elsif self.description_template.uri == value_uri
-        # StatementTemplateのdomainとrangeが同じクラスである
-        h[self.uri.to_s] = {
-          :property => self.on_property.to_s,
-          :value => value_uri.to_s,
-          :locations => self.locations.map do |location| location.to_s end
-        }
-      else
-        dt = DescriptionTemplate.find(value_uri)
-        if dt == nil
-          h[self.uri.to_s] = {
-            :property => self.on_property.to_s,
-            :value => value_uri.to_s,
-            :locations => self.locations.map do |location| location.to_s end
-          }
-        else
-          h[self.uri.to_s] = {
-            :property => self.on_property.to_s,
-            :value => dt.getinfo
-          }
-        end
-      end
-      return h
+    # StatementTemplateのowl:onClassを取得する
+    # owl:onClassの先がURIを持つリソースである場合と，URIを持たない空ノードである場合の両者に対応
+    # 以下の2パターンの構造に対応
+    #   st -> owl:onClass -> :class
+    #   st -> owl:onClass -> :bnode(collection) -> owl:oneOf -> :class
+    def on_class
+      klass = get_on_class(self)
+      return nil if klass.nil?
+      collection = get_collection(klass)
+      return collection.empty? ? [klass] : collection
     end
+
+    # 与えられたノードからowl:onClassを辿った先にあるノードを取得する
+    def get_on_class(node)
+      query = RDF::Query.new do
+        pattern [node.uri, RDF::OWL.onClass, :klass]
+      end
+      query.execute(Spira.repository(:default)).each do |solution|
+        return solution.klass
+      end
+      return nil
+    end
+
+    # 与えられたノードからowl:oneOfを辿った先にあるオブジェクトノードを取得する
+    def get_one_of(node)
+      query = RDF::Query.new do
+        pattern [node, RDF::OWL.oneOf, :collection]
+      end
+      query.execute(Spira.repository(:default)).each do |solution|
+        return solution.collection
+      end
+      return nil
+    end
+
+    # 与えられたノードからowl:oneOfを辿った先を起点として，コレクション構成ノードの配列を取得する
+    def get_collection(klass)
+      node = get_one_of(klass)
+      return [] if node == []
+      result = Array.new
+      loop do
+        first, rest = get_collection_element(node)
+        result << first.last
+        break if rest == RDF.nil
+        node = rest
+      end
+      return result
+    end
+
+    # 与えられたコレクション構成ノードの値と次のノードを取得する
+    def get_collection_element(node)
+      query = RDF::Query.new do
+        pattern [node, RDF.first, :first]
+        pattern [node, RDF.rest, :rest]
+      end
+      query.execute(Spira.repository(:default)).each do |solution|
+        return [solution.first, solution.rest]
+      end
+    end
+
+    #define_type RDF::DSP.StatementTemplate
+    #has_subject :description_template, RDF::RDFS.subClassOf, 'DSP::DescriptionTemplate'
   end
 end
