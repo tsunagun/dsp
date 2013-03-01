@@ -1,3 +1,4 @@
+# coding: UTF-8
 module DSP
   class StatementTemplate < Spira::Base
     include Spira::Resource
