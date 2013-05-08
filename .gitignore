@@ -20,3 +20,5 @@ vendor/bundle
 .DS_Store
 .AppleDouble
 .Thumb.db
+
+*~
