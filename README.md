@@ -7,14 +7,11 @@ Function 1: Parse DSP to three class.
   DSP::DescriptionTemplate
   DSP::StatementTemplate
 
-Function 2: Build XSLT Stylesheet from Description Set Profile.
-  This stylesheet translates HTML documents to RDF/XML.
-  It is necessary that DSP is described based on OWL-DSP.
 
 ## Installation
 
     gem build dsp.gemspec
-    gem install dsp-0.0.1.gem
+    gem install dsp-0.0.2.gem
 
 ## Usage
 
@@ -22,18 +19,11 @@ Function 2: Build XSLT Stylesheet from Description Set Profile.
     require 'dsp'
     dsp_uri = "http://dandelion.slis.tsukuba.ac.jp/dsp/asahi"
     metabridge_base_uri = "http://www.metabridge.jp/infolib/metabridge/api/description?graph="
-    ActsAsRDF.repository = RDF::Repository.load(metabridge_base_uri + dsp_uri)
-    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new(dsp_uri))
+    Spira.add_repository(:default, RDF::Repository.load(metabridge_base_uri + dsp_uri))	
+    dst = DSP::DescriptionSetTemplate.for(RDF::URI.new(dsp_uri))
     dt = dst.primary_topic
     sts = dt.statement_templates
 
-### Build XSLT Stylesheet from Description Set Profile
-    require 'dsp'
-    dsp_uri = "http://dandelion.slis.tsukuba.ac.jp/dsp/asahi"
-    metabridge_base_uri = "http://www.metabridge.jp/infolib/metabridge/api/description?graph="
-    ActsAsRDF.repository = RDF::Repository.load(metabridge_base_uri + dsp_uri)
-    dst = DSP::DescriptionSetTemplate.find(RDF::URI.new(dsp_uri))
-    xslt = dst.build_xslt(metabridge_base_uri + dsp_uri)
 
 ## Contributing
 
