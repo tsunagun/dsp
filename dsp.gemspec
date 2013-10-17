@@ -22,4 +22,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency "linkeddata"
   gem.add_dependency "builder"
   gem.add_dependency "spira"
+  gem.add_dependency "sparql"
 end
