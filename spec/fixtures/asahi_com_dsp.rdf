@@ -1,0 +1,145 @@
+<rdf:RDF
+    xmlns:dxl="http://dandelion.slis.tsukuba.ac.jp/vocab/dxl#"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:xl="http://www.w3.org/2008/05/skos-xl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dsp="http://purl.org/metainfo/terms/dsp#"
+    xmlns:reg="http://purl.org/metainfo/terms/registry#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+>
+ 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi">
+    <reg:primaryDescription rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN"/>
+    <reg:comment>asahi.comの記事ページからメタデータを抽出するルールとして使用</reg:comment>
+    <reg:title>asahi.com メタデータ抽出規則</reg:title>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <reg:registered>2012-01-16</reg:registered>
+    <reg:created>2013-10-04</reg:created>
+    <reg:creator rdf:resource="http://purl.org/metainfo/indvs/organization/G0000021"/>
+    <reg:owner rdf:resource="http://purl.org/metainfo/indvs/organization/G0000021"/>
+    <reg:registrant>tsuna</reg:registrant>
+    <reg:version>ver.0.0.5</reg:version>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN">
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-日付"/>
+    <rdfs:label>MAIN</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <reg:statementOrder>作成者,日付,記事タイプ,タイトル,関連記事,キーワード</reg:statementOrder>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-作成者"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-キーワード"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#DescriptionTemplate"/>
+    <dsp:resourceClass rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-記事タイプ"/>
+    <reg:idField>記事ID</reg:idField>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-タイトル"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-関連記事"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN"/>
+    <dsp:valueURIOccurrence>mandatory</dsp:valueURIOccurrence>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-作成者">
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/creator"/>
+    <owl:onClass rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#記者"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-作成者"/>
+    <rdfs:label>作成者</rdfs:label>
+    <rdfs:comment>記事の作成者</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-日付">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdfs:comment>記事の発行日</rdfs:comment>
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/date"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:label>日付</rdfs:label>
+    <dxl:location>//div[@id='HeadLine']/div[@class='Utility']/p</dxl:location>
+    <dxl:location>//meta[@name='RELEASE_DATE']/@content</dxl:location>
+    <owl:onClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-日付"/>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-記事タイプ">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/type"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-記事タイプ"/>
+    <owl:onClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdfs:comment>記事のタイプ</rdfs:comment>
+    <rdfs:label>記事タイプ</rdfs:label>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <dxl:location>//meta[@property='og:type']/@content</dxl:location>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-タイトル">
+    <owl:onClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <dxl:location>//title</dxl:location>
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/title"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <dxl:location>//meta[@name='mixi-check-title' or @property='og:title']/@content</dxl:location>
+    <rdfs:comment>記事のタイトル</rdfs:comment>
+    <dxl:location>//div[@id='HeadLine']/h1</dxl:location>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-タイトル"/>
+    <rdfs:label>タイトル</rdfs:label>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-関連記事">
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/relate"/>
+    <rdfs:comment>関連記事</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-関連記事"/>
+    <owl:onClass rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdfs:label>関連記事</rdfs:label>
+    <dxl:location>//div[@class='Box2']/ul[@class='Lnk']/li/a/@href</dxl:location>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-キーワード">
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#StatementTemplate"/>
+    <owl:onProperty rdf:resource="http://purl.org/dc/elements/1.1/subject"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <rdfs:label>キーワード</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#MAIN-キーワード"/>
+    <dxl:location>//dl[@id='TopicPath']/dd/ol/li/*</dxl:location>
+    <dxl:location>//div[@id='asahikeywords']/dl/dd/a</dxl:location>
+    <rdfs:comment>記事のキーワード</rdfs:comment>
+    <owl:onClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#記者">
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#記者-氏名"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#記者"/>
+    <rdfs:label>記者</rdfs:label>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#DescriptionTemplate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <reg:statementOrder>氏名</reg:statementOrder>
+    <dsp:resourceClass rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description> 
+  <rdf:Description rdf:about="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#組織">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdf:type rdf:resource="http://purl.org/metainfo/terms/dsp#DescriptionTemplate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#組織-記者"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#組織-組織名"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:subClassOf rdf:resource="http://dandelion.slis.tsukuba.ac.jp/dsp/asahi#組織"/>
+    <rdfs:label>組織</rdfs:label>
+    <reg:statementOrder>記者</reg:statementOrder>
+    <dsp:resourceClass rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+  </rdf:Description>
+</rdf:RDF>
