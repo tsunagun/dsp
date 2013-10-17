@@ -11,6 +11,20 @@ module DSP
     property :registered, :predicate => RDF::REG.registered, :type => String
     #define_type RDF::OWL.Ontology
 
+    # 当該DSPに含まれるDescription Templateの配列を取得する
+    # 返値: DSP::DescriptionTemplateクラスのインスタンスを要素とする配列
+    def description_templates
+      sparql =<<-EOF
+SELECT distinct ?description_template_uri
+WHERE {
+  ?description_template_uri a <http://purl.org/metainfo/terms/dsp#DescriptionTemplate> .
+}
+      EOF
+      description_templates = SPARQL.execute(sparql, Spira.repository(:default)).map do |solution|
+        ::DSP::DescriptionTemplate.for(RDF::URI.new(solution.description_template_uri))
+      end
+      return description_templates
+    end
 
     # rdfファイルがxmlの場合のみ有効
     def namespaces(fname)
