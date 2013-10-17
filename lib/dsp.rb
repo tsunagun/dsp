@@ -1,4 +1,4 @@
-require 'initializers/load'
+require './config/initializers/load'
 require "dsp/version"
 require 'dsp/description_set_template'
 require 'dsp/description_template'
